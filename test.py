@@ -6,7 +6,7 @@ from packages.HTMLTestReportCN import HTMLTestRunner
 import unittest
 
 curent_dirc = os.path.dirname(os.path.realpath(__file__))
-report_dirc = os.path.join(curent_dirc, "Report")
+report_dirc = os.path.join(curent_dirc, "report")
 print("#######"+report_dirc)
 
 # 指定测试用例为当前文件夹下的 testcase 目录
