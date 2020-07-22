@@ -16,7 +16,8 @@ print("#######"+report_dirc)
 # test_dir = './testcase'
 test_dir =os.path.join(curent_dirc, "testcase")
 
-discover = unittest.defaultTestLoader.discover(test_dir, pattern='*load*.py')
+# discover = unittest.defaultTestLoader.discover(test_dir, pattern='*load*.py')
+discover = unittest.defaultTestLoader.discover(test_dir, pattern='*test1*.py')
 
 
 if __name__ == "__main__":
