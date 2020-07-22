@@ -37,5 +37,6 @@ if __name__ == "__main__":
     # 发送邮件
     # curent_dirc = os.path.dirname(os.path.realpath(__file__))
     # report_dirc = os.path.join(curent_dirc, "Report")
-    Email.send_mail(report_dirc)
+    Email.send_mail(filename)
+    # Email.send_mail(report_dirc)
 

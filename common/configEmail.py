@@ -1,10 +1,13 @@
 from email.mime.text import MIMEText
 from email.header import Header
-import  ssl
 import smtplib
 import os
 import  time
 
+curent_dirc = os.path.dirname(os.path.realpath(__file__))
+print("#######")
+print(curent_dirc)
+report_dirc = os.path.join(curent_dirc, "report")
 class Email:
     def find_new_report(report_dirc):
         lists = os.listdir(report_dirc)
@@ -17,14 +20,21 @@ class Email:
         lists = os.listdir(report_dirc)
         lists.sort(key=lambda fn: os.path.getmtime(report_dirc + "\\" + fn))
         new_report = os.path.join(report_dirc, lists[-1])
-        # print(new_report)
+        print(new_report)
         file = open(new_report, "r", encoding='utf-8')
         text = file.read()
         content = Email.get_str_btw(text, '<div class=\'heading\'>', '<table id=\'result_table')
         return content
 
+    def find_new_reportNew2(report_dirc):
+        file = open(report_dirc, "r", encoding='utf-8')
+        text = file.read()
+        content = Email.get_str_btw(text, '<div class=\'heading\'>', '<table id=\'result_table')
+        return content
+
     def send_mail(report_dirc):
-        new_report = Email.find_new_reportNew(report_dirc)
+        # new_report = Email.find_new_reportNew(report_dirc)
+        new_report = Email.find_new_reportNew2(report_dirc)
         # 读取报告
         # f = open(new_report, 'rb')
         # mail_body = f.read()
@@ -63,15 +73,15 @@ class Email:
 
 if __name__ == "__main__":
     curent_dirc = os.path.dirname(os.path.realpath(__file__))
-    report_dirc = os.path.join(curent_dirc, "Report")
+    report_dirc = os.path.join(curent_dirc, "report")
 
     get_path = os.path.dirname(os.path.abspath(__file__))
     print(get_path)
-    log_path = os.path.join(os.path.dirname(get_path), "Report")
+    log_path = os.path.join(os.path.dirname(get_path), "report")
     get_path = os.path.dirname(get_path)
 
     print(get_path)
-    Email.send_mail('D:\\workspace\\pythonWork\\Report')
+    Email.send_mail(log_path)
 
     # file = open('D:\\workspace\\pythonWork\\Report\\2020-07-13 16_42_06_result.html', "r",encoding='utf-8')
     # text = file.read()
