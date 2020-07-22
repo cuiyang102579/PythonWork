@@ -21,7 +21,7 @@ if __name__ == "__main__":
     # 执行测试用例
     now = time.strftime("%Y%m%d%H%M%S")
     # filename = report_dirc + now + '.html'
-    filename = report_dirc  + '/result.html'
+    filename = report_dirc  + '\\result.html'
     print('*********'+filename)
     fp = open(filename, 'wb')
     runner = HTMLTestRunner(stream=fp,
