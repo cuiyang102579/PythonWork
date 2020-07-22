@@ -1,10 +1,13 @@
 import os
 import time
+
+from common.Log import Log
 from common.StringUtils import del_file
 from common.configEmail import Email
 from packages.HTMLTestReportCN import HTMLTestRunner
 import unittest
 
+log = Log()
 curent_dirc = os.path.dirname(os.path.realpath(__file__))
 report_dirc = os.path.join(curent_dirc, "report")
 print("#######"+report_dirc)
@@ -21,7 +24,8 @@ if __name__ == "__main__":
     # 执行测试用例
     now = time.strftime("%Y%m%d%H%M%S")
     # filename = report_dirc + now + '.html'
-    filename = report_dirc  + '\\result.html'
+    filename = report_dirc  + '/result.html'
+    log.info(filename)
     print('*********'+filename)
     fp = open(filename, 'wb')
     runner = HTMLTestRunner(stream=fp,
