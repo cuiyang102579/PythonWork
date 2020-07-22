@@ -1,6 +1,6 @@
-import re
 from email.mime.text import MIMEText
 from email.header import Header
+import  ssl
 import smtplib
 import os
 import  time
