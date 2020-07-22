@@ -77,10 +77,10 @@ if __name__ == "__main__":
 
     get_path = os.path.dirname(os.path.abspath(__file__))
     print(get_path)
-    log_path = os.path.join(os.path.dirname(get_path), "report")
+    log_path = os.path.join(os.path.dirname(get_path), "report\index.html")
     get_path = os.path.dirname(get_path)
 
-    print(get_path)
+    print("****************"+log_path)
     Email.send_mail(log_path)
 
     # file = open('D:\\workspace\\pythonWork\\Report\\2020-07-13 16_42_06_result.html', "r",encoding='utf-8')
