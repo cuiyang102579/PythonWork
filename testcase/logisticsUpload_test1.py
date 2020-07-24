@@ -1,4 +1,4 @@
-import readConfig as readConfig
+import readConfig
 from common import configHttpC
 import unittest
 import json

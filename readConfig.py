@@ -3,7 +3,7 @@ import codecs
 import configparser
 
 work_dirc = os.path.dirname(os.path.realpath(__file__))
-configPath = os.path.join(work_dirc, "properties\config.ini")
+configPath = os.path.join(work_dirc, "properties/config.ini")
 
 print(configPath)
 
