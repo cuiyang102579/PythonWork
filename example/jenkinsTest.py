@@ -1,10 +1,10 @@
 import argparse
+import os
 
 from common.Log import Log
 
 log = Log()
 log.info("--测试开始--")
-
 parser=argparse.ArgumentParser()
 parser.add_argument("package")
 parser.add_argument("totalEvent")
