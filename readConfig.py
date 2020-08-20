@@ -34,6 +34,10 @@ class ReadConfig:
         value = self.cf.get("DATABASE", name)
         return value
 
+    def get_utms(self, name):
+        value = self.cf.get("UTMS", name)
+        return value
+
 if __name__ == '__main__':
     url = ReadConfig().get_tools("logisticsUpload")
     print(url)

@@ -16,12 +16,27 @@ class ConfigHttpC:
         response = requests.get(url=url, params=params, headers=headers,verify=False)
         return response.json()
 
+    def send_put(self, url, data, headers):
+        requests.packages.urllib3.disable_warnings()
+        response = requests.put(url=url, data=data, headers=headers, verify=False)
+        return response.json()
+
+    def send_patch(self, url, data, headers):
+        requests.packages.urllib3.disable_warnings()
+        response = requests.patch(url=url, data=data, headers=headers, verify=False)
+        return response.json()
+
     def run_main(self, url, params, data, headers, method):
         respose = None
         if method == 'GET':
             respose = self.send_get(url, params, headers)
+        elif method== 'PUT':
+            respose = self.send_put(url, data, headers)
+        elif method== 'PATCH':
+            respose = self.send_patch(url, data, headers)
         else:
             respose = self.send_post(url, data, headers)
+
         return respose
 
 

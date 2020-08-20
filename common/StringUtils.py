@@ -1,3 +1,4 @@
+import datetime
 import os
 import shutil
 
@@ -16,7 +17,7 @@ def del_file(filepath):
         elif os.path.isdir(file_path):
             shutil.rmtree(file_path)
 
-
+# 读excel
 def readExcel(v):
     data = xlrd.open_workbook(v, 'r')
     table = data.sheet_by_index(0)
@@ -46,14 +47,42 @@ def readExcel(v):
         print(r)
         return r
 
+#获取当前时间
+def get_now():
+    curr_time = datetime.datetime.now()
+    # print(curr_time)
+    # time_now = datetime.datetime.strftime(curr_time, '%Y%m%d%H%M%S')
+    time_now = datetime.datetime.strftime(curr_time, '%m%d%H%M%S')
+    # print(time_now)
+    return time_now
+
+#数据库返回元组列表转json
+# data：元组
+# *str：sql查询字段名称，需要与数据库字段名称保持一致
+#selct *  查询，str需要参数数量与表字段数量一样多，不建议select *
+def db_to_json(data,*str):
+    jsonData = []
+    for row in data:
+        result = {}
+        for x in range(0, len(str)):
+            print(str[x])
+            result[str[x]]=row[x]
+        jsonData.append(result)
+        # jsondatar = json.dumps(jsonData, ensure_ascii=False)
+        # print(jsondatar[1:len(jsondatar) - 1])
+        # print(jsondatar)
+    print("%%%%%%%%%%%%%%%")
+    print(jsonData)
+    return jsonData
 
 if __name__ == "__main__":
-    curent_dirc = os.path.dirname(os.path.realpath(__file__))
-    a=os.path.dirname(curent_dirc)
-    report_dirc = os.path.join(a, "testdata/test.xlsx")
-    print(report_dirc)
-    readExcel(report_dirc)
-
+    # curent_dirc = os.path.dirname(os.path.realpath(__file__))
+    # a=os.path.dirname(curent_dirc)
+    # report_dirc = os.path.join(a, "testdata/test.xlsx")
+    # print(report_dirc)
+    # readExcel(report_dirc)
+    print(type(get_now()))
+    print(get_now())
 
 
 
