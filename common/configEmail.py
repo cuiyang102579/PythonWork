@@ -56,7 +56,7 @@ class Email:
         # homedo邮箱
         mail_server = 'smtp.homedo.com'
         user_name = 'cuiyang@homedo.com'
-        pwd = 'Cui111111'
+        pwd = 'Cy102579'
         sender = 'cuiyang@homedo.com'
         receivers = ['cuiyang@homedo.com','cuiyang102579@163.com']
 
