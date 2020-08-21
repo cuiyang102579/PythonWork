@@ -1,6 +1,6 @@
 import os
 import time
-
+import argparse
 from common.Log import Log
 from common.StringUtils import del_file
 from common.configEmail import Email
@@ -19,6 +19,13 @@ test_dir =os.path.join(curent_dirc, "testcase")
 # discover = unittest.defaultTestLoader.discover(test_dir, pattern='*load*.py')
 discover = unittest.defaultTestLoader.discover(test_dir, pattern='*test*.py')
 
+# 获取jenkins参数
+parser=argparse.ArgumentParser()
+parser.add_argument("env")
+args=parser.parse_args()
+param=vars(args)
+log.info(param)
+log.info(param['env'])
 
 if __name__ == "__main__":
     del_file(report_dirc)
