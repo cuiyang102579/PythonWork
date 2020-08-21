@@ -41,8 +41,6 @@ class repository_application(unittest.TestCase):
         urlnew = url + 'repository_application?current=1&size=10&repoName='+repoName
         log.info("请求地址"+urlnew)
         headers = {'Content-Type': 'application/json'}
-        data = {"repoId": 0, "repoName": repoName, "sort": 0, "remark": repoName}
-        # run = configHttpC.ConfigHttpC(urlnew, params=None, data=json.dumps(data), headers=headers, method='GET')
         run = configHttpC.ConfigHttpC(urlnew, params=None, data=None, headers=headers, method='GET')
         log.info(run.response)
         globals()["repoId"]=run.response['data']['records'][0]['repoId']
@@ -61,7 +59,6 @@ class repository_application(unittest.TestCase):
         log.info("请求地址" + urlnew)
         headers = {'Content-Type': 'application/json'}
         data = {"repoId": globals()["repoId"], "repoName": repoName, "sort": 0, "remark": 'autotest'+get_now()}
-        # run = configHttpC.ConfigHttpC(urlnew, params=None, data=json.dumps(data), headers=headers, method='GET')
         run = configHttpC.ConfigHttpC(urlnew, params=None, data=json.dumps(data), headers=headers, method='PUT')
         log.info(run.response)
         respCode = run.response['respCode']
@@ -74,7 +71,6 @@ class repository_application(unittest.TestCase):
         if globals()["repoId"] == '0':
             self.assertFalse("repoId不存在")
         urlnew = url + 'repository_application/' + globals()["repoId"]+'/enable'
-        # urlnew = url + 'repository_application/500960652742225920'
         log.info("请求地址" + urlnew)
         headers = {'Content-Type': 'application/json'}
         data = {"enable":False}

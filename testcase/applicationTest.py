@@ -29,6 +29,7 @@ class application(unittest.TestCase):
         ds= random.choice(ids)
         self.repositoryId=ds['id']
         self.repo_name=ds['repo_name']
+        log.info(self.repo_name)
         self.name=self.repo_name+get_now()
         self.joinType=random.choice(joinTypes)
         self.remark = "一句话简介" + get_now()
