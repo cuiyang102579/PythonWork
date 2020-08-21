@@ -23,6 +23,8 @@ class application(unittest.TestCase):
     @classmethod
     def setUpClass(self):
         log.info("start.......")
+        log.info(localReadConfig.get_db('passwd'))
+        log.info('Y,l+7L0w')
         # 存储新增的应用id
         globals()["repoId"]='0'
         # 数据初始化，定义项目类型以及名称
