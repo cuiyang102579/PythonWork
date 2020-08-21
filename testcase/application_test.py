@@ -12,7 +12,9 @@ url = localReadConfig.get_utms("utms_api")
 log = Log()
 # appName='应用名称'+get_now()
 
-con={"host":localReadConfig.get_db('host'),"user":localReadConfig.get_db('user'),"passwd":localReadConfig.get_db('passwd')}
+# con={"host":localReadConfig.get_db('host'),"user":localReadConfig.get_db('user'),"passwd":localReadConfig.get_db('passwd')}
+print(localReadConfig.get_db('passwd'))
+con={"host":localReadConfig.get_db('host'),"user":localReadConfig.get_db('user'),"passwd":'Y,l+7L0w'}
 
 
 class application(unittest.TestCase):
