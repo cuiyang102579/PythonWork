@@ -33,19 +33,19 @@ class application(unittest.TestCase):
         ds= random.choice(ids)
         self.repositoryId=ds['id']
         self.repo_name=ds['repo_name']
-        log.info(self.repo_name)
         self.name=self.repo_name+get_now()
+        log.info(self.name)
         self.joinType=random.choice(joinTypes)
         self.remark = "一句话简介" + get_now()
 
         # 连接数据库
-        self.conn = DataBase(con, "saas_application")
+        # self.conn = DataBase(con, "saas_application")
         # print(self.repositoryId)
         # print(self.name)
     @classmethod
     def tearDownClass(self):
         log.info("end.....")
-        self.conn.close()
+        # self.conn.close()
 
     def test_1_application_simple(self):
         ''' 新增应用'''
@@ -57,18 +57,43 @@ class application(unittest.TestCase):
         log.info(run.response)
         respCode=run.response['respCode']
 
-        if respCode == '0000':
-            sql = 'SELECT id from application  where app_name = ' + '\'' + self.name + '\';'
-            res = self.conn.execute(sql)
-            print(res)
-            jsondata = db_to_json(res, 'id')
-            globals()["repoId"] = jsondata[0]['id']
+        # if respCode == '0000':
+        #     sql = 'SELECT id from application  where app_name = ' + '\'' + self.name + '\';'
+        #     res = self.conn.execute(sql)
+        #     print(res)
+        #     jsondata = db_to_json(res, 'id')
+        #     globals()["repoId"] = jsondata[0]['id']
 
         self.assertEqual("0000",respCode)
 
-    def test_2_application_simple_edit(self):
+    def test_2_application_group(self):
+        ''' 应用列表查询'''
+        log.info("开始test_2_application_group")
+        urlnew = url + 'application/group?groupType=REPOSITORY'
+        log.info("请求地址" + urlnew)
+        headers = {'Content-Type': 'application/json'}
+        run = configHttpC.ConfigHttpC(urlnew, params=None, data=None, headers=headers, method='GET')
+        log.info(run.response)
+        data = run.response['data']['records']
+        blean = False
+        for x in range(0, len(data)):
+            if data[x]['groupName'] == self.repo_name:
+                applicationSimpleList = data[x]['applicationSimpleList']
+                for y in range(0, len(applicationSimpleList)):
+                    if applicationSimpleList[y]['appName'] == self.name:
+                        globals()["repoId"] = applicationSimpleList[y]['applicationId']
+                        log.info("查询结果正确 " + str(globals()["repoId"]))
+                        blean = True
+                        break
+        if blean:
+            self.assertTrue("查询结果正确")
+        else:
+            self.assertFalse("未查询到本次新增的数据")
+
+
+    def test_3_application_simple_edit(self):
         ''' 编辑应用'''
-        log.info("开始test_2_application_simple_edit")
+        log.info("开始test_3_application_simple_edit")
         if  globals()["repoId"] == '0':
             self.assertFalse("未获取到repoId，无法进行编辑")
         urlnew = url + 'application/'+str(globals()["repoId"])+'/simple'
@@ -81,9 +106,9 @@ class application(unittest.TestCase):
         respCode = run.response['respCode']
         self.assertEqual("0000", respCode)
 
-    def test_3_application_extra(self):
+    def test_4_application_extra(self):
         ''' 编辑介绍'''
-        log.info("开始test_3_application_extra")
+        log.info("开始test_4_application_extra")
         if globals()["repoId"] == '0':
             self.assertFalse("未获取到repoId，无法进行编辑")
         urlnew = url + 'application/' + str(globals()["repoId"]) + '/extra'
@@ -94,40 +119,6 @@ class application(unittest.TestCase):
         log.info(run.response)
         respCode = run.response['respCode']
         self.assertEqual("0000", respCode)
-
-    def test_4_application_group(self):
-        ''' 应用列表查询'''
-        log.info("开始test_4_application_group")
-        if globals()["repoId"] == '0':
-            self.assertFalse("未获取到repoId，无法进行编辑")
-        urlnew = url + 'application/group?groupType=REPOSITORY'
-        log.info("请求地址" + urlnew)
-        headers = {'Content-Type': 'application/json'}
-        run = configHttpC.ConfigHttpC(urlnew, params=None, data=None, headers=headers, method='GET')
-        # log.info(run.response)
-        data=run.response['data']['records']
-        print("&&&&&&&&&&&&&&&&&&&&&&")
-        log.info(self.repo_name )
-        log.info(globals()["repoId"])
-        print("&&&&&&&&&&&&&&&&&&&&&&")
-        print(data)
-        blean = False
-        for x in range(0,len(data)):
-            if data[x]['groupName'] ==self.repo_name :
-                c=data[x]['applicationSimpleList']
-                applicationSimpleList=data[x]['applicationSimpleList']
-                for y in range(0,len(applicationSimpleList)):
-                    a= applicationSimpleList[y]['applicationId']
-                    b=globals()["repoId"]
-                    if applicationSimpleList[y]['applicationId'] == str(globals()["repoId"]):
-                        log.info("查询结果正确 "+str(globals()["repoId"]))
-                        blean=True
-                        break
-        if blean :
-            self.assertTrue("查询结果正确")
-        else :
-            self.assertFalse("未查询到本次新增的数据")
-
 
 
     def get_data(self):

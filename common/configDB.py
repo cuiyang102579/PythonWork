@@ -22,7 +22,7 @@ class DataBase:
             self._conn = pymysql.connect(self.host, self.user, self.passwd)
             self._conn.select_db(self.database)
             self._cursor = self._conn.cursor()
-            # self.log.info("Connect DB successfully!")
+            self.log.info("Connect DB successfully!")
         except ConnectionError as ex:
             self.log.error(str(ex))
 
