@@ -34,6 +34,10 @@ class tools(unittest.TestCase):
         run = configHttpC.ConfigHttpC(url, params=None, data=json.dumps(data), headers=headers, method='POST')
         # print(run.response)
         respCode = run.response['respCode']
-        self.assertEqual("0000", "0000")
+        if respCode != '0000':
+            log.error(run.response)
+        self.assertEqual("0000", respCode)
 
 
+if __name__=="__main__":
+    unittest.main();
